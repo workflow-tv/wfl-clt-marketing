@@ -1,0 +1,265 @@
+name: Build and Package Release
+
+# test 5
+
+on:
+  workflow_call:
+    inputs:
+      version:
+        type: string
+        required: false
+      test-package: 
+        type: boolean
+        required: false
+        default: false
+            
+    secrets:
+      token:
+        required: true
+
+env: 
+  workflow-config-path: ".github/workflow-config.yaml"
+
+jobs:
+  # cancel:
+  #   name: 'Cancel Previous Builds'
+  #   runs-on: ubuntu-latest
+  #   timeout-minutes: 3
+  #   steps:
+  #     - uses: styfle/cancel-workflow-action@0.9.1
+  #       with:
+  #         all_but_latest: true
+  #         access_token: ${{ github.token }}
+
+  build-config:
+    name: Fetch Build Configuration
+    runs-on: ubuntu-latest
+    outputs:
+      builds: ${{ steps.get-build-config.outputs.result }}
+      tests: ${{ steps.get-tests-config.outputs.result }}
+      environment: ${{ steps.get-tests-config.outputs.result }}
+    steps:
+      - name: Checkout Default Branch
+        uses: actions/checkout@v2
+        with: 
+          ref: ${{ github.event.repository.default_branch }}
+
+      - name: Get build config
+        id: get-build-config
+        uses: mikefarah/yq@master
+        with:
+          cmd: yq -o=json -I0 eval '.builds'  ${{ env.workflow-config-path }}
+      
+      - name: Get tests config
+        id: get-tests-config
+        uses: mikefarah/yq@master
+        with:
+          cmd: yq -o=json -I0 eval '.tests'  ${{ env.workflow-config-path }}
+
+      - name: Get environment config
+        id: get-environment-config
+        uses: mikefarah/yq@master
+        with:
+          cmd: yq -o=json -I0 eval '.environment'  ${{ env.workflow-config-path }}
+
+  test-build:
+    name: Run ${{ matrix.test }} tests
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        test: ${{ fromJson(needs.build-config.outputs.tests) }}
+    steps:
+      - run: echo "All Good"
+        
+  check-build:
+    name: Check Build
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "hi"
+  
+  upload-report:
+    name: Generate Build Reports
+    runs-on: ubuntu-latest
+    needs:
+      - test-build
+      - check-build
+    # strategy:
+    #   matrix:
+    #     report: 
+    #       - name: codecov
+            
+    #         file: codecov.yml
+    #     exclude:
+    #       - report:
+    #           if: false
+    steps:
+      - run: echo "All Good"
+      # - name: Upload Coverage Report
+      #   if: ${{ needs.test-build.outputs.coverage_file }} != null
+      #   uses: codecov/codecov-action@v2
+      #   with:
+      #     token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
+      #     files: ./coverage1.xml,./coverage2.xml # optional
+      #     flags: unittests # optional
+      #     name: codecov-umbrella # optional
+      #     fail_ci_if_error: true # optional (default = false)
+      #     verbose: true # optional (default = false)
+        
+
+#         name: Snyk example
+# on: push
+# jobs:
+#   security:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@master
+#       - uses: snyk/actions/setup@master
+#       - uses: actions/setup-go@v1
+#         with:
+#           go-version: '1.13'
+#       - name: Snyk monitor
+#         run: snyk test
+#         env:
+#           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        
+  package-build:
+    name: Package Build
+    runs-on: ${{ matrix.os }}
+    needs:
+      - build-config
+      - test-build
+    strategy:
+      fail-fast: true
+      matrix:
+        build: #${{ fromJson(needs.build-config.outputs.config)}}
+          - name: app
+            platform: ios
+            args: 
+
+        exclude:
+          - build:
+              platform: ios
+              os: ubuntu-latest
+
+          - build:
+              playfrom: mac
+              os: ubuntu-latest
+
+        include:
+          - build:
+          #     platform: docker
+              os: ubuntu-latest
+
+          # - build:
+          #     platform: helm
+          #     os: ubuntu-latest
+
+          # - build:
+          #     platform: android
+          #     os: ubuntu-latest
+
+          - build:
+              platform: ios
+              os: macos-latest
+
+
+
+        #   # - name: Application (IOS)
+        #     # platform: ios
+        #     # os: macos-latest
+
+        #   - name: website
+        #     os: ubuntu-latest
+        #     platform: web
+        #     artifact-path: ./app.tar.gz
+        #     build-args: {}
+        #     package-args:
+        #       dockerfile: dockerfile
+        #       save: true
+
+          # - name: Application (Android)
+            # platform: android
+            # os: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        
+      - name: Build V2
+        uses: ./.github/actions/build-project.v2
+        with:
+          dockerfile: dockerfile
+          target: app-ios
+        
+      - name: Build ${{ matrix.name }}
+        id: build-project
+        uses: ./.github/actions/build-project
+        with:
+          platform: ${{ matrix.build.platform }}
+          release-track: ${{ inputs.release-track }}
+          version-tag: ${{ inputs.version-tag }}
+
+      - name: Package Docker
+        id: package-docker
+        if: matrix.build.platform == 'docker'
+        uses: ./.github/actions/package-docker
+        with: ${{ matrix.build.args }}
+      
+      - name: Package Helm Chart
+        id: package-docker
+        if: matrix.build.platform == 'helm'
+        uses: ./.github/actions/package-docker
+        with: ${{ matrix.build.args }}
+
+      - name: Package Android
+        id: package-docker
+        if: matrix.build.platform == 'android'
+        uses: ./.github/actions/package-docker
+        with: ${{ matrix.build.args }}
+
+      - name: Package IOS
+        id: package-docker
+        if: matrix.build.platform == 'ios'
+        uses: ./.github/actions/package-docker
+        with: ${{ matrix.build.args }}
+
+      - name: Upload saved image as artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ matrix.name }}
+          retention-days: 1
+          path: ${{ matrix.artifact-path }}
+        
+  test-package:
+    name: Test Package
+    runs-on: ubuntu-latest
+    needs:
+      - package-build
+    strategy:
+      matrix:
+        include:
+          - test: unit
+            command: npm test
+    if: ${{ inputs.test-package }}
+    steps:
+      - run: echo "hi"
+        # Run the Firebase Test Lab Action
+      # - name: Run tests on Firebase Test Lab
+      #   uses: asadmansr/Firebase-Test-Lab-Action@v1.0
+      #   with:
+      #     arg-spec: 'tests.yml:android-pixel-4'
+      #   env:
+      #     SERVICE_ACCOUNT: ${{ secrets.SERVICE_ACCOUNT }}
+
+      # - name: Test
+      #   run: |
+      #     xcodebuild -scheme MyFramework -resultBundlePath TestResults test
+
+      # - uses: kishikawakatsumi/xcresulttool@v1.0.3
+      #   with:
+      #     path: TestResults.xcresult
+      #   if: success() || failure()
+
+
+  #     - uses: azure/container-scan@v0
+  # with:
+  #   image-name: my-image:my-tag
