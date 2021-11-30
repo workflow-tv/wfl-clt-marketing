@@ -1,0 +1,57 @@
+project: $PROJECT
+project_slug: $PROJECT_SLUG
+
+release-tracks:
+  devel: {}
+  alpha: {}
+  beta: {}
+  rc: {}
+  public: 
+    API_URL: https://api.github.com
+  
+tests:
+  - name: jest unit
+    command: jest
+
+checks:
+  coverage:
+    enabled: true
+    command: npm coverage
+    file: cov.xml
+  
+  snyk:
+    enabled: true
+
+builds:
+  - name: cms
+    dockerfile: dockerfile
+    target: app-ios
+    
+  
+  - name: cms
+    dockerfile: dockerfile
+    target: target-docker
+
+  - name: cms-nginx
+    platform: docker
+    args: 
+      dockerfile: ./Dockerfile.nginx
+  
+  - name: cms-app
+    platform: docker
+    build-args: 
+
+  - name: chart
+    platform: helm
+    args:
+      chart: ./helm
+    
+publish:
+  - name: cms-nginx
+    platform: github
+
+
+      - appstore
+      - github
+      - playstore
+      - appgallery

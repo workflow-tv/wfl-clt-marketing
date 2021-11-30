@@ -1,0 +1,54 @@
+apiVersion: skaffold/v2beta5
+kind: Config
+
+build:
+  artifacts:
+    - image: gcr.io/my-project/my-image
+      context: .
+      docker:
+        dockerfile: .deploy/dockerfiles/Dockerfile
+        target: build-devel
+      sync:
+        manual: []
+          # sync a single file into the `/etc` folder
+          # - src: '.filebaserc'
+          #   dest: /etc
+
+          # # sync files directly below `static-html` into `static/`
+          # - src: 'static-html/*.html'
+          #   dest: static
+
+          # # sync any `png` file into the assets folder
+          # - src: '**/*.png'
+          #   dest: assets
+
+          # # sync all `md` files from `content/en` into `content`
+          # - src: 'content/en/**/*.md'
+          #   dest: content
+          #   strip: 'content/en/'
+  local:
+    useDockerCLI: true # must match in artifactOverrides
+    push: false
+
+deploy:
+  helm:
+    releases:
+    - name: my-release
+      chartPath: .deploy/chart
+      artifactOverrides:
+        image: gcr.io/my-project/my-image # no tag present!
+      imageStrategy:
+        helm: {}
+
+# portForward:
+#   - resourceType: Service
+#     resourceName: 
+
+profiles:
+  - name: local-devel
+    deploy:
+      kubeContext: docker-for-desktop
+
+  # - name: profile-2
+  #   activation:
+  #     - kubeContext: minikube

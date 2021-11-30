@@ -1,0 +1,67 @@
+name: Synchronize pre-release branches with release 
+
+# test4
+
+on:
+  push:
+    branches:
+      - release/*
+
+jobs:
+  debug-build:
+    name: Debug Build
+    uses: workflow-tv/wfl-clt-marketing/.github/workflows/_debug_build.yaml@release/v0
+    with:
+      enabled: true
+
+  rebase-branches:
+    name: Rebase ${{ matrix.base }} onto ${{ matrix.target }}
+    runs-on: ubuntu-latest
+    strategy:
+        matrix:
+          base: [release]
+          target: [release-candidate, beta, alpha]
+    steps:
+      - name: Checkout base branch
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      
+      - name: Setup Git
+        run: |
+          git config user.email "it@workflow.tv"
+          git config user.name "Github"
+
+      - name: Get branch version
+        id: branch-version
+        uses: actions-ecosystem/action-regex-match@v2
+        with:
+          text: ${{ github.ref_name }}
+          regex: '(?:[a-z-]+\/)([a-z0-7]+(?:\.[a-z0-9]+)*)'
+          
+      - name: Checkout target branch
+        run: git checkout ${{ format('{0}/{1}', matrix.target, steps.branch-version.outputs.group1) }}
+
+      - name: Creating target branch
+        if: ${{ failure() }}
+        run: | 
+          git checkout -b ${{ format('{0}/{1}', matrix.target, steps.branch-version.outputs.group1) }}
+          git push --set-upstream origin ${{ format('{0}/{1}', matrix.target, steps.branch-version.outputs.group1) }}
+
+      - name: Rebase branch
+        run: git rebase ${{ format('{0}/{1}', matrix.base, steps.branch-version.outputs.group1) }}
+
+      - name: Push rebased branch
+        run: git push --force-with-lease
+
+      - name: Rebase failed, create pull request
+        if: ${{ failure() }}
+        id: create-pull-request
+        uses: repo-sync/pull-request@v2
+        with:                        
+          source_branch: ${{ format('{0}/{1}', matrix.base, steps.branch-version.outputs.group1) }}
+          destination_branch: ${{ format('{0}/{1}', matrix.target, steps.branch-version.outputs.group1) }}
+          pr_draft: false
+          pr_allow_empty: true
+          pr_reviewer: wgmouton
+          github_token: ${{ secrets.GITHUB_TOKEN }}

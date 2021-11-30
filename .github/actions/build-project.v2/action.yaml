@@ -1,0 +1,52 @@
+name: "Build Project"
+description: "Greet someone"
+inputs:
+  dockerfile: 
+    required: true
+    description: "path to dockerfile"
+  target:
+    required: false
+    description: "multistage builds"
+  platform:
+    description: "The platform to build for"
+    required: true
+  # keystore:
+  #   description: |
+  #     A base64 representation of your Java KeyStore file.
+  #     Use: openssl base64 < your_signing_keystore.jks | tr -d '\n'
+  #   required: true
+  # who-to-greet:  # id of input
+  #   description: 'Who to greet'
+  #   required: true
+  #   default: 'World'
+# outputs:
+#   build-path: 
+#     description: The path which contains the built project
+#     value: ${{ steps.build-project.outputs.build-path }}
+  # random-number:
+  #   description: "Random number"
+  #   value: ${{ steps.random-number-generator.outputs.random-id }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Login to Docker Hub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKER_HUB_USERNAME }}
+        password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+    - name: Build and push
+      id: docker_build
+      uses: docker/build-push-action@v2
+      with:
+        context: ./
+        file: ${{ inputs.dockerfile }}
+        builder: ${{ steps.buildx.outputs.name }}
+        push: false
+        tags:  app:something
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache
+
+    - shell: bash
+      run: docker exec app:something /sss

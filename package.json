@@ -1,0 +1,13 @@
+{
+  "scripts": {
+    "start": "echo \"TODO!! Implement Start Command.\"",
+    "test": "echo \"TODO!! Implement Test Suite.\"",
+    "lint": "echo \"TODO!! Implement Linting.\"",
+    "prepare": "npx lefthook install"
+  },
+  "devDependencies": {
+    "@arkweid/lefthook": "^0.7.7",
+    "@commitlint/cli": "^15.0.0",
+    "@commitlint/config-conventional": "^15.0.0"
+  }
+}

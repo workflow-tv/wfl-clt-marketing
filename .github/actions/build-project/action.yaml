@@ -1,0 +1,26 @@
+name: "Build Project"
+description: "Greet someone"
+inputs:
+  platform:
+    description: "The platform to build for"
+    required: true
+  # keystore:
+  #   description: |
+  #     A base64 representation of your Java KeyStore file.
+  #     Use: openssl base64 < your_signing_keystore.jks | tr -d '\n'
+  #   required: true
+  # who-to-greet:  # id of input
+  #   description: 'Who to greet'
+  #   required: true
+  #   default: 'World'
+# outputs:
+#   build-path: 
+#     description: The path which contains the built project
+#     value: ${{ steps.build-project.outputs.build-path }}
+  # random-number:
+  #   description: "Random number"
+  #   value: ${{ steps.random-number-generator.outputs.random-id }}
+
+runs:
+  using: "docker"
+  image: Dockerfile
