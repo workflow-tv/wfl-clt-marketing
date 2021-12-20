@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <title>Workflow | Online Production Management Platform</title>
+  <meta name="description"
+    content="Secure, efficient and easy to use - your online production platform, all on one interface.">
+  <link href=“https://fonts.googleapis.com/css?family=Roboto:300,400,500,700” rel=“stylesheet”>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+    integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <script src="https://www.youtube.com/player_api"></script>
+  <script src="/assets/js/index.js"></script>
+  <link href="/assets/css/app.css" rel="stylesheet" type="text/css" />
+  <link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico">
+</head>
+
+<body>
+  <div id='cookie-banner' style="
+    z-index: 100000;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #111024;
+    padding: 1em;
+    margin: 1em;
+    text-align: center;
+    border-radius: 1em;
+    box-shadow: 5px 3px 10px;
+    display: none;
+"><span style="
+    color: #fff;
+    margin: auto;
+    vertical-align: middle;
+">This website makes use of first party cookies to manage your browser session. Refer to our <a
+        href="{{ asset('/resources/workflow_privacy_policy_final.pdf') }}" target="_blank"
+        style="color: #007bff;">privacy policy</a> for more information. </span>
+    <button onclick="hideCookieBanner()" id='cookie-button' class="btn btn-primary"
+      style="size: 1em;font-size: 1em;height: auto;width: auto;">Acknowledge</button>
+    <script>
+      if (sessionStorage.getItem('hide-cookie-banner') != 'true') {
+        document.getElementById('cookie-banner').style.setProperty('display', 'block');
+      }
+      function hideCookieBanner() {
+        document.getElementById('cookie-banner').style.setProperty('display', 'none');
+        sessionStorage.setItem("hide-cookie-banner", 'true');
+      }
+    </script>
+  </div>
+  <div class="wrapper">
+    <div class="container-fluid nav-bar">
+      <header>
+        <div class="row">
+          <div class="col-md-12 nav-bar-grid">
+            <div id="logo-click" class="logo"></div>
+            <nav class="fullnavbar">
+              <ul class="nav-bar-items-grid">
+                <li><a href="#about">ABOUT</a></li>
+                <li><a href="#features">FEATURES</a></li>
+                <li><a href="#pricing">PRICING PLAN</a></li>
+                <li><a href="#download">DOWNLOAD APP</a></li>
+                <li><a href="#contact">CONTACT</a></li>
+                <li>
+                  <div class="signup-container-fluid">
+                    <div class="register-button nav-button">
+                      <span class="">REGISTER NEW COMPANY</span>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="signup-container-fluid">
+                    <a href="https://admin.workflow.tv/login">USER LOGIN</a>
+                  </div>
+                </li>
+              </ul>
+            </nav>
+          </div>
+          <nav class="navbar navbar-light light-blue lighten-4">
+            <!-- Collapse button -->
+            <button class="navbar-toggler toggler-example" type="button" data-toggle="collapse"
+              data-target="#navbarSupportedContent1" aria-controls="navbarSupportedContent1" aria-expanded="false"
+              aria-label="Toggle navigation"><span class="dark-blue-text"><i
+                  class="fa fa-bars fa-1x"></i></span></button>
+            <!-- Collapsible content -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent1">
+              <!-- Links -->
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                  <a class="nav-link" href="#about">ABOUT</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#features">FEATURES</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#pricing">PRICING</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#download">DOWNLOAD</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#resources">RESOURCES</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#contact">CONTACT</a>
+                </li>
+                <li class="nav-item">
+                  <a id="register-mobile" class="nav-link" href="#contact">REGISTER</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="https://admin.workflow.tv/login">LOGIN</a>
+                </li>
+              </ul>
+              <!-- Links -->
+            </div>
+            <!-- Collapsible content -->
+          </nav>
+        </div>
+      </header>
+    </div>
+    <div class="container-fluid-fluid get-started">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="page-section banner-page-section hidden">
+            <p class="primary-text heading-top">Secure, efficient and easy to use -</p>
+            <p class="primary-text heading-top">your online film production management platform.</p>
+            <!-- <p class="secondary-text">Secure, efficient and easy to use</p> -->
+            <!-- <p class="secondary-text">we put your production online</p> -->
+            <!-- <p class="secondary-text">all on one interface</p> -->
+            <div class="banner-btn-actions">
+              <button id="get-started-button" class="btn btn-primary call-to-action-click hidden register-button">GET
+                STARTED</button>
+              <button id="watch-demo-button" class="btn btn-primary hidden btn-watch">
+                <i class="fas fa-caret-right"></i>
+                <span>WATCH DEMO</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <a id="about" class="anchor"></a>
+    <a id="watch-demo" class="anchor"></a>
+
+    <div class="information-section">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="page-section-information-slider about hidden">
+              <div class="restrict-width">
+                <h2 class="scroll-in-view-cycle">About</h2>
+                <div class="feature-body">
+                  <div class="about-phone-container">
+                    <img id="demo-phone-screen-white" class="small-image" src="/assets/images/android.png" alt="">
+                  </div>
+                  <p>At Workflow, we get that production is a complex process.</p>
+                  <p>We also get that valuable time and revenue are lost due to inefficient, old-style, manual
+                    processes. Current systems are resource heavy, paper-based, time consuming and labour intensive.
+                    Communication is often fragmented across multiple channels and information is siloed.</p>
+                  <p>With all of this in mind, we have looked at ways to make production simpler and more integrated –
+                    all online.</p>
+                  <p>Workflow provides your teams with the tools to work more efficiently, more stream-lined and more
+                    cost-effectively.</p>
+                  <p>Workflow will maximise the teams’ time and keep job costs down. Paperless and contact free.</p>
+                  <p>With a mobile app for your clients, cast and crew, Workflow is where Production works.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <a id="features" class="anchor"></a>
+
+    <div class="container-fluid swiper-hide no-left-padding no-right-padding">
+      <div class="row">
+        <div class="col-md-12 no-left-padding no-right-padding">
+          <div class="page-section features">
+            <div class="restrict-width">
+              <h2 class="scroll-in-view-cycle">Features</h2>
+              <div class="body scroll-in-view-cycle">
+                <p>Faster, more efficient production means more savings in your budget.</p>
+                <p>Simply put, Workflow’s functions and features rock. Designed to maximise your productivity, these
+                  handy functions will help you to streamline your production process from prep to
+                  wrap.</p>
+              </div>
+              <div class="row tiles-container">
+                <div class="swiper-container-multi-view feature-swiper">
+                  <div class="swiper-wrapper">
+                    <!-- <div class="swiper-slide">
+                    <div class="feature-display-block scroll-in-view-cycle">
+                      <img class="feature-icon" src="/assets/images/icons/production_schedule@2x.png" alt="">
+                      <div class="feature-title">Production Schedules</div>
+                      <div class="feature-description">From production calendars to tech recce schedules to wardrobe fitting breakdowns to post-production schedules – all your production schedules are
+                        created online and accessible to everyone on your shoot in an instant, easy to view manner.
+                      </div>
+                      <button id="production-schedules-demo-button" class="btn btn-primary demo-button">
+                        <i class="fas fa-caret-right"></i>
+                        <span>WATCH DEMO</span>
+                      </button>
+                    </div>
+                  </div> -->
+                    <div class="swiper-slide">
+                      <div class="feature-display-block scroll-in-view-cycle">
+                        <img class="feature-icon" src="/assets/images/icons/production_booklet@2x.png" alt="">
+                        <div class="feature-title">Production Booklet</div>
+                        <div class="feature-description">
+                          Pulling information from individual sections of your Job, the Production Booklet is published
+                          online and is easy to view and read. Distributed to all at the push of a button, it is easily
+                          accessible on your laptop or mobile device.
+                          <p style="font-size: 14px;">Just like that.</p>
+                        </div>
+                        <button id="production-booklet-demo-button" class="btn btn-primary demo-button">
+                          <i class="fas fa-caret-right"></i>
+                          <span>WATCH DEMO</span>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="swiper-slide">
+                      <div class="feature-display-block scroll-in-view-cycle">
+                        <img class="feature-icon" src="/assets/images/icons/daily_call_sheets@2x.png" alt="">
+                        <div class="feature-title">Daily Call Sheets</div>
+                        <div class="feature-description">
+                          While we can’t pretend that we have removed the often interminable wait for confirmation of
+                          the next day’s call time, we have made it much easier and more streamlined to create and
+                          update your daily call sheet – and to share it online with everyone in an instant.
+                        </div>
+                        <button id="callsheet-demo-button" class="btn btn-primary demo-button">
+                          <i class="fas fa-caret-right"></i>
+                          <span>WATCH DEMO</span>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="swiper-slide">
+                      <div class="feature-display-block scroll-in-view-cycle">
+                        <img class="feature-icon" src="/assets/images/icons/location@2x.png" alt="">
+                        <div class="feature-title">Locations</div>
+                        <div class="feature-description">
+                          All your locations in one place, online, including special customised notes for Unit Parking –
+                          and with GPS co-ordinates linked to a range of Map Apps for instant directions. No more
+                          late-night map drawing for Unit Managers, no more dangerous dash across the highway in the
+                          dark to post location signs before sunrise, no more unsafe driving-while-map-reading for your
+                          drivers. Click and go.
+                        </div>
+                        <button id="locations-demo-button" class="btn btn-primary demo-button">
+                          <i class="fas fa-caret-right"></i>
+                          <span>WATCH DEMO</span>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="swiper-slide">
+                      <div class="feature-display-block scroll-in-view-cycle">
+                        <img class="feature-icon" src="/assets/images/icons/supplier_database@2x.png" alt="">
+                        <div class="feature-title">Supplier Directory</div>
+                        <div class="feature-description">All your suppliers’ details all in one place. No need to search
+                          elsewhere for contact details. Or VAT numbers. Or recapture info for call sheets
+                          and production booklets. Simply search and add to your documents. Use ours. Add your own. They
+                          are all there, at the touch of a button.
+                        </div>
+                        <button id="suppliers-demo-button" class="btn btn-primary demo-button">
+                          <i class="fas fa-caret-right"></i>
+                          <span>WATCH DEMO</span>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="swiper-slide">
+                      <div class="feature-display-block scroll-in-view-cycle">
+                        <img class="feature-icon" src="/assets/images/icons/cast_and_crew_members@2x.png" alt="">
+                        <div class="feature-title">Crew and Cast Members Directory</div>
+                        <div class="feature-description">All your crew and cast contact details all in one place. No
+                          need to try and remember phone numbers. Or personal details. Or recapture each crew
+                          member on every job. Again and again. Simply search and add crew and cast to your production
+                          documents.
+                        </div>
+                        <button id="crew-cast-demo-button" class="btn btn-primary demo-button">
+                          <i class="fas fa-caret-right"></i>
+                          <span>WATCH DEMO</span>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="swiper-slide">
+                      <div class="feature-display-block scroll-in-view-cycle">
+                        <img class="feature-icon" src="/assets/images/icons/baseline-notifications_active-24px copy 21@2x.png"
+                          alt="">
+                        <div class="feature-title">Notifications</div>
+                        <div class="feature-description">Too many whatsapp groups? Endless phone calls wasting your
+                          time? Send instant notifications direct from the system. Send to one person, send to a
+                          whole department or send to everyone on the job. See who has received and read the
+                          notification. Send again if necessary. All at the click of a button.
+                        </div>
+                        <button id="app-user-demo-button" class="btn btn-primary demo-button">
+                          <i class="fas fa-caret-right"></i>
+                          <span>WATCH DEMO</span>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="swiper-slide">
+                      <div class="feature-display-block scroll-in-view-cycle">
+                        <img class="feature-icon" src="/assets/images/icons/baseline-schedule-24px@2x.png" alt="">
+                        <div class="feature-title">Time Sheets</div>
+                        <div class="feature-description">No more manual signing of time sheets on pieces of paper
+                          attached to clip boards. Crew and cast log onto the mobile app, enter their own times,
+                          and submit. All the production team has to do is approve, download and send to Agents. It’s
+                          really that simple.
+                        </div>
+                        <button id="time-logs-demo-button" class="btn btn-primary demo-button">
+                          <i class="fas fa-caret-right"></i>
+                          <span>WATCH DEMO</span>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="swiper-slide">
+                      <div class="feature-display-block scroll-in-view-cycle">
+                        <img class="feature-icon" src="/assets/images/icons/file_storage@2x.png" alt="">
+                        <div class="feature-title">File Storage</div>
+                        <div class="feature-description">All your job files and production documents, all in one place,
+                          reliably, securely, and accessible to all at any time, as and when
+                          needed. Before, during and even long after the job.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Add Pagination -->
+                  <div class="swiper-pagination"></div>
+                  <div id="feature-swiper-button-next" class="swiper-button-next"></div>
+                  <div class="swiper-button-prev"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <a id="pricing" class="anchor"></a>
+
+    <div class="container-fluid swiper-hide">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="page-section pricing">
+            <h2 class="scroll-in-view-cycle">Pricing Plan</h2>
+            <div class="body scroll-in-view-cycle">
+              <p>Our plan is that you only pay for what you need, when you need it. No hidden fees. No extra costs. No
+                limit to the number of users or storage. That is the plan.</p>
+            </div>
+            <div class="row tiles-container pricing-swiper-container">
+              <div class="swiper-container-multi-view pricing-swiper">
+                <div class="swiper-wrapper">
+                  <div class="swiper-slide">
+                    <div class="pricing-display-block scroll-in-view-cycle">
+                      <div class="pricing-title">Free</div>
+                      <div class="pricing-sub-title">
+                        The quickest and easiest way to try Workflow – simply register your company now and start
+                        exploring and building your own directories.
+                      </div>
+                      <div class="pricing-amount">
+                        Free
+                      </div>
+                      <div class="pricing-amount-one-line">Free</div>
+                      <div class="title">Includes</div>
+                      <div class="included-line"></div>
+                      <div class="included">
+                        <ul>
+                          <li>Access the Suppliers Directory – and add your own</li>
+                          <li>Access the Crew Members Directory – and add your own</li>
+                          <li>Create your own private Client Directory </li>
+                          <li>Add unlimited production team members to your company profile</li>
+                          <li>Storage of all your Location info and online pins to maps in your Location Directory</li>
+                          <li>Training sessions for your Production Teams</li>
+                          <li>Tech support</li>
+                          <li>First job free</li>
+                        </ul>
+                        <!-- 
+                      <div class="included-item"><span class="included-title">1 Month access</span> to your job in edit mode</div>
+                      <div class="included-item"><span class="included-title">Thereafter</span> view-only mode</div>
+                      <div class="included-item"><span class="included-title">Unlimited</span> Users</div> -->
+                      </div>
+                    </div>
+                  </div>
+                  <div class="swiper-slide">
+                    <div class="pricing-display-block scroll-in-view-cycle">
+                      <div class="pricing-title">Pay per job</div>
+                      <div class="pricing-sub-title">
+                        For companies wanting the freedom of choice to pay-when-busy. Pay-as-you-go. Pay-on-demand. Pay
+                        per job.
+                      </div>
+                      <div class="pricing-amount">
+                        <span class="currency">R</span> 1 950 <span class="currency">per job</span>
+                      </div>
+                      <div class="pricing-amount-one-line">Pay per job - R 1 950 per job</div>
+                      <div class="included">
+                        <ul>
+                          <li>One month access to your job in edit mode, thereafter in view-only mode</li>
+                          <li>Per job invoicing, pay in advance</li>
+                        </ul>
+                      </div>
+                      <div class="title">Includes</div>
+                      <div class="included-line"></div>
+                      <div class="included">
+                        <ul>
+                          <li>Everything you get with FREE</li>
+                          <li>Instantly activate and work in your jobs online</li>
+                          <li>Build production booklets and daily call sheets</li>
+                          <li>Onboard unlimited users to each job in the mobile app</li>
+                          <li>Access all your job information on the mobile app – view, download and send</li>
+                          <li>Access to location directions online</li>
+                          <li>Send notifications to crew and cast and track confirmations of delivery</li>
+                          <li>Storage of all your job documents and info after the job has wrapped</li>
+                          <li>Online time sheets for crew and cast</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="swiper-slide">
+                    <div class="pricing-display-block scroll-in-view-cycle">
+                      <div class="pricing-title">Pay Monthly</div>
+                      <div class="pricing-sub-title">
+                        For companies wanting the benefit of cost-savings for shorter periods of time, such as a summer
+                        season.
+                      </div>
+                      <div class="pricing-amount">
+                        <span class="currency">R</span> 3 850 <span class="currency">per month</span>
+                      </div>
+                      <div class="pricing-amount-one-line">Pay Monthly - R 3 850 per month</div>
+                      <div class="included">
+                        <ul>
+                          <li>3 jobs in any one calendar month</li>
+                          <li>Thereafter pay-per-job</li>
+                          <li>One month access to each job in edit mode, thereafter view-only mode</li>
+                          <li>Monthly invoicing, pay in advance</li>
+                        </ul>
+                      </div>
+                      <div class="title">Includes</div>
+                      <div class="included-line"></div>
+                      <div class="included">
+                        <ul>
+                          <li>Everything you get with FREE</li>
+                          <li>Instantly activate and work in your jobs online</li>
+                          <li>Build production booklets and daily call sheets</li>
+                          <li>Onboard unlimited users to each job in the mobile app</li>
+                          <li>Access all your job information on the mobile app – view, download and send</li>
+                          <li>Access to location directions online</li>
+                          <li>Send notifications to crew and cast and track confirmations of delivery</li>
+                          <li>Storage of all your job documents and info after the job has wrapped</li>
+                          <li>Online time sheets for crew and cast</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="swiper-slide">
+                    <div class="pricing-display-block scroll-in-view-cycle">
+                      <div class="pricing-title">Alternatives</div>
+                      <div class="pricing-sub-title">
+                        We don’t believe in one-size-fits-all, so our alternatives are offered as a solution to ensure
+                        we’ve got you covered.
+                      </div>
+                      <div class="pricing-amount">
+                        Options
+                      </div>
+                      <div class="pricing-amount-one-line">Options</div>
+                      <div class="included">
+                        <ul>
+                          <li>For companies busy all year round, wanting an annual cost and peace of mind to simply flow
+                            with the workload</li>
+                          <li>For stills, music videos or long-form</li>
+                          <li>For brand films, content marketing and corporate videos</li>
+                          <li>For table-top and pack shots</li>
+                          <li>For PSA’s or no budget jobs</li>
+                          <li>For anyone wanting to discuss our pricing plans</li>
+                        </ul>
+                      </div>
+                      <div class="available-download-at single-button">
+                        <a href="#footer">
+                          <a href="mailto:info@workflow.tv?subject=Workflow Demo Request">
+                            <button class="btn btn-primary btn-watch">Contact Us</button>
+                          </a>
+                        </a>
+                      </div>
+                      <!-- <p>For Stills companies, Content or Long-Form companies.</p>
+                    <p>For PSA’s or no budget jobs.</p>
+                    <p>For anyone wanting to discuss our pricing plans.</p>
+                    <p>Please contact us to discuss the alternatives.</p> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Add Pagination -->
+              <div class="swiper-pagination"></div>
+              <div class="swiper-button-next"></div>
+              <div class="swiper-button-prev"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid no-left-padding no-right-padding">
+    <div class="row">
+      <div class="col-md-12 no-left-padding no-right-padding">
+        <!-- <div class="page-section-information-slider pricing-information scroll-in-view-cycle"> -->
+        <div class="page-section features testimonials hidden">
+          <div class="restrict-width">
+            <h2 class="scroll-in-view-cycle">Testimonials</h2>
+            <div class="body">
+              <div class="feature-body">
+                <p>
+                  “The Network has used Workflow on our last four jobs and it has totally changed the way that we
+                  communicate with our crew. It has become an integral tool on our jobs in terms of the ease of
+                  communication with the team, as well as the simplicity of having all of the production info in one
+                  place. Scripts, treatments, shot list, shooting schedule, dailies, everyone’s phone numbers, map links
+                  to the locations, the ability for crew to log their call and wrap times etc. etc. It’s been valuable
+                  for us to move over to this way of running our jobs, we save an awful lot of time, we use a lot less
+                  paper and everything is all together in one place, including the crew and suppliers directory which is
+                  really useful when setting up a job. Totally recommend trying it out.”
+                  <span>Kim White, Executive Producer, The Network</span>
+                </p>
+
+                <p>
+                  “Just wanted to say Thank You for letting us trial your Workflow App on our last job. It’s definitely
+                  something we will be using going forward. The crew response was really positive and it really
+                  streamlined communication with them in pre-production. Knowing that everyone had access to the latest
+                  information and that no one had been missed out, saved a lot of production time and effort. See you on
+                  the next one.”
+                  <span>Brendan Rice, Executive Producer, Riceboy</span>
+                </p>
+
+                <p>
+                  “We have all been talking about a creating a production App for so long and finally someone went ahead
+                  and made one. As a company, we are always looking for a way to streamline production, as well as ways
+                  to reduce our carbon footprint. This app assists production with both. What could be easier than
+                  having all the information you need kept in one place. I love the fact that we no longer have to do
+                  endless printing of dailies, and messaging and calling the crew with changes to call times, time
+                  sheets etc.”
+                  <span>Shayne Brookstein, Executive Producer, Moonlighting Commercials</span>
+                </p>
+
+                <p>
+                  “Just wanted to say that I'm really impressed with the Workflow app, well done. It would be amazing if
+                  you manage to get all production companies on board. Nice one.”
+                  <span>Tony Tex, First Assistant Director</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <a id="download" class="anchor"></a>
+    <a id="resources" class="anchor"></a>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="available-at-sections">
+            <div>
+              <div class="available-title">Download the app</div>
+              <div class="available-image double">
+                <div>
+                  <div id="background-image-samsung-screen" class="background-image-samsung-screen"></div>
+                  <div class="background-image-samsung"></div>
+                </div>
+                <div>
+                  <div id="background-image-iphone-screen" class="background-image-iphone-screen"></div>
+                  <div class="background-image-iphone"></div>
+                </div>
+              </div>
+              <div class="available-description border-right">
+                Download the Workﬂow App to your mobile device to access your Jobs and
+                Production information.
+              </div>
+              <!-- <div class="app-user-demo-button-container">
+              <button id="app-user-demo-button" class="btn btn-primary">
+                <i class="fas fa-caret-right"></i>
+                <span>WATCH DEMO</span>
+              </button>
+            </div> -->
+              <div class="available-download-at">
+                <div class="available-download-at-item">
+                  <a href="{{ config('app.play_store_url') }}" target="_blank">
+                    <img src="/assets/images/google_play@2x.png" alt="">
+                  </a>
+                </div>
+                <div class="available-download-at-item">
+                  <a href="{{ config('app.app_store_url') }}" target="_blank">
+                    <img src="/assets/images/app_store@2x.png" alt="">
+                  </a>
+                </div>
+                <div class="available-download-at-item">
+                  <a href="{{ config('app.huawei_appgallery_url') }}" target="_blank">
+                    <img src="/assets/images/huawei_appgallery_download_logo.png" alt="">
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="available-title">Request a demo</div>
+              <div class="available-image single">
+                <div id="background-image-laptop-screen" class="background-image-laptop-screen"></div>
+                <div id="background-image-laptop" class="background-image-laptop"></div>
+              </div>
+              <div class="available-description">
+                Want to see Workflow in action?
+              </div>
+              <div class="available-download-at single-button">
+                <a href="#footer">
+                  <a href="mailto:info@workflow.tv?subject=Workflow Demo Request">
+                    <button class="btn btn-primary btn-watch">Contact Us</button>
+                  </a>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <a id="footer" class="anchor"></a>
+    <a id="contact" class="anchor"></a>
+
+    <div class="footer">
+      <div class="footer-grid">
+        <div>
+          <img class="footer-image" src="/assets/images/footer_logo@2x.png" alt="">
+          <p><a href="{{ asset('/resources/workflow_terms_and_conditions_final_8_3_19.pdf') }}" target="_blank">Terms
+              and Conditions</a></p>
+          <p><a href="{{ asset('/resources/workflow_privacy_policy_final.pdf') }}" target="_blank">Privacy Policy</a>
+          </p>
+          <p class="copy-right">Copyright 2021 - Workflow | All rights reserved</p>
+        </div>
+        <div>
+          <div class="title">Contact</div>
+          <div class="body">
+            For general enquiries contact us at <a href="mailto:info@workflow.tv">info@workflow.tv</a>
+            <br />
+            For product support or technical issues contact us at <a
+              href="mailto:support@workflow.tv">support@workflow.tv</a>
+            <br />
+            Or contact Mandy Ritchie direct at
+            <a href="mailto:mandy@workflow.tv">mandy@workflow.tv</a>
+            <br />
+
+            <a class="fb-link"
+              href="https://www.facebook.com/people/Workflow/100063816722651/?view_public_for=104429851445872"> <i
+                class="fab fa-facebook"></i></a>
+          </div>
+          <p class="copy-right-mobile">Copyright 2018 - Workflow | All rights reserved</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="video-modal-overlay">
+    <div id="demo-player"></div>
+    <div id="locations-player"></div>
+    <div id="time-logs-player"></div>
+    <div id="callsheet-player"></div>
+    <div id="suppliers-player"></div>
+    <div id="crew-cast-player"></div>
+    <div id="production-booklet-player"></div>
+    <div id="production-schedules-player"></div>
+    <div id="app-user-player"></div>
+  </div>
+
+  <div class="modal-overlay" style="display: none">
+    <div class="register-modal register-form">
+      <form method="POST" action="https://admin.workflow.tv/signup" accept-charset="UTF-8">
+      <h1>COMPANY REGISTRATION FORM <i id="close-register" class="fas fa-times close-register"></i></h1>
+          <p>Please complete the form below to register a Production Company. All fields are mandatory.</p>
+          <div class="row">
+        <div class="col-md-6 col-sm-12">
+          <div class="form-group m-form__group">
+            <input class="form-control" placeholder="Production Company Name *" name="company_name" type="text">
+          </div>
+          <div class="form-group m-form__group">
+            <input class="form-control" placeholder="Website *" name="company_website" type="text">
+          </div>
+          <div class="form-group m-form__group">
+            <input class="form-control" placeholder="VAT Number *" name="company_vat" type="text">
+          </div>
+          <div class="form-group m-form__group">
+            <input class="form-control" placeholder="Email Address *" name="company_email" type="text">
+          </div>
+          <div class="form-group m-form__group">
+            <input class="form-control" placeholder="Telephone Number *" name="company_phone" type="text">
+          </div>
+        </div>
+  
+        <div class="col-md-6 col-sm-12">
+          <div class="form-group m-form__group ">
+            <input placeholder="Address *" class="form-control" id="street" name="street" type="text">
+          </div>
+          <div class="form-group m-form__group ">
+            <input placeholder="City *" class="form-control" id="city" name="city" type="text">
+          </div>
+          <div class="form-group m-form__group ">
+            <input placeholder="Province *" class="form-control" id="state" name="state" type="text">
+          </div>
+          <div class="form-group m-form__group ">
+            <input placeholder="Postal Code *" class="form-control" id="post_code" name="post_code" type="text">
+          </div>
+          <div class="form-group m-form__group ">
+            <select class="form-control" id="country_id" name="country_id"><option selected="selected" value="">Country *</option><option value="4">Afghanistan</option><option value="248">Åland Islands</option><option value="8">Albania</option><option value="12">Algeria</option><option value="16">American Samoa</option><option value="20">Andorra</option><option value="24">Angola</option><option value="660">Anguilla</option><option value="10">Antarctica</option><option value="28">Antigua and Barbuda</option><option value="32">Argentina</option><option value="51">Armenia</option><option value="533">Aruba</option><option value="36">Australia</option><option value="40">Austria</option><option value="31">Azerbaijan</option><option value="44">Bahamas</option><option value="48">Bahrain</option><option value="50">Bangladesh</option><option value="52">Barbados</option><option value="112">Belarus</option><option value="56">Belgium</option><option value="84">Belize</option><option value="204">Benin</option><option value="60">Bermuda</option><option value="64">Bhutan</option><option value="68">Bolivia, Plurinational State of</option><option value="535">Bonaire, Sint Eustatius and Saba</option><option value="70">Bosnia and Herzegovina</option><option value="72">Botswana</option><option value="74">Bouvet Island</option><option value="76">Brazil</option><option value="86">British Indian Ocean Territory</option><option value="96">Brunei Darussalam</option><option value="100">Bulgaria</option><option value="854">Burkina Faso</option><option value="108">Burundi</option><option value="116">Cambodia</option><option value="120">Cameroon</option><option value="124">Canada</option><option value="132">Cape Verde</option><option value="136">Cayman Islands</option><option value="140">Central African Republic</option><option value="148">Chad</option><option value="152">Chile</option><option value="156">China</option><option value="162">Christmas Island</option><option value="166">Cocos (Keeling) Islands</option><option value="170">Colombia</option><option value="174">Comoros</option><option value="178">Congo</option><option value="180">Congo, the Democratic Republic of the</option><option value="184">Cook Islands</option><option value="188">Costa Rica</option><option value="384">Côte d'Ivoire</option><option value="191">Croatia</option><option value="192">Cuba</option><option value="531">Curaçao</option><option value="196">Cyprus</option><option value="203">Czech Republic</option><option value="208">Denmark</option><option value="262">Djibouti</option><option value="212">Dominica</option><option value="214">Dominican Republic</option><option value="218">Ecuador</option><option value="818">Egypt</option><option value="222">El Salvador</option><option value="226">Equatorial Guinea</option><option value="232">Eritrea</option><option value="233">Estonia</option><option value="231">Ethiopia</option><option value="238">Falkland Islands (Malvinas)</option><option value="234">Faroe Islands</option><option value="242">Fiji</option><option value="246">Finland</option><option value="250">France</option><option value="254">French Guiana</option><option value="258">French Polynesia</option><option value="260">French Southern Territories</option><option value="266">Gabon</option><option value="270">Gambia</option><option value="268">Georgia</option><option value="276">Germany</option><option value="288">Ghana</option><option value="292">Gibraltar</option><option value="300">Greece</option><option value="304">Greenland</option><option value="308">Grenada</option><option value="312">Guadeloupe</option><option value="316">Guam</option><option value="320">Guatemala</option><option value="831">Guernsey</option><option value="324">Guinea</option><option value="624">Guinea-Bissau</option><option value="328">Guyana</option><option value="332">Haiti</option><option value="334">Heard Island and McDonald Islands</option><option value="336">Holy See (Vatican City State)</option><option value="340">Honduras</option><option value="344">Hong Kong</option><option value="348">Hungary</option><option value="352">Iceland</option><option value="356">India</option><option value="360">Indonesia</option><option value="364">Iran, Islamic Republic of</option><option value="368">Iraq</option><option value="372">Ireland</option><option value="833">Isle of Man</option><option value="376">Israel</option><option value="380">Italy</option><option value="388">Jamaica</option><option value="392">Japan</option><option value="832">Jersey</option><option value="400">Jordan</option><option value="398">Kazakhstan</option><option value="404">Kenya</option><option value="296">Kiribati</option><option value="408">Korea, Democratic People's Republic of</option><option value="410">Korea, Republic of</option><option value="414">Kuwait</option><option value="417">Kyrgyzstan</option><option value="418">Lao People's Democratic Republic</option><option value="428">Latvia</option><option value="422">Lebanon</option><option value="426">Lesotho</option><option value="430">Liberia</option><option value="434">Libya</option><option value="438">Liechtenstein</option><option value="440">Lithuania</option><option value="442">Luxembourg</option><option value="446">Macao</option><option value="807">Macedonia, the former Yugoslav Republic of</option><option value="450">Madagascar</option><option value="454">Malawi</option><option value="458">Malaysia</option><option value="462">Maldives</option><option value="466">Mali</option><option value="470">Malta</option><option value="584">Marshall Islands</option><option value="474">Martinique</option><option value="478">Mauritania</option><option value="480">Mauritius</option><option value="175">Mayotte</option><option value="484">Mexico</option><option value="583">Micronesia, Federated States of</option><option value="498">Moldova, Republic of</option><option value="492">Monaco</option><option value="496">Mongolia</option><option value="499">Montenegro</option><option value="500">Montserrat</option><option value="504">Morocco</option><option value="508">Mozambique</option><option value="104">Myanmar</option><option value="516">Namibia</option><option value="520">Nauru</option><option value="524">Nepal</option><option value="528">Netherlands</option><option value="540">New Caledonia</option><option value="554">New Zealand</option><option value="558">Nicaragua</option><option value="562">Niger</option><option value="566">Nigeria</option><option value="570">Niue</option><option value="574">Norfolk Island</option><option value="580">Northern Mariana Islands</option><option value="578">Norway</option><option value="512">Oman</option><option value="586">Pakistan</option><option value="585">Palau</option><option value="275">Palestinian Territory, Occupied</option><option value="591">Panama</option><option value="598">Papua New Guinea</option><option value="600">Paraguay</option><option value="604">Peru</option><option value="608">Philippines</option><option value="612">Pitcairn</option><option value="616">Poland</option><option value="620">Portugal</option><option value="630">Puerto Rico</option><option value="634">Qatar</option><option value="638">Réunion</option><option value="642">Romania</option><option value="643">Russian Federation</option><option value="646">Rwanda</option><option value="652">Saint Barthélemy</option><option value="654">Saint Helena, Ascension and Tristan da Cunha</option><option value="659">Saint Kitts and Nevis</option><option value="662">Saint Lucia</option><option value="663">Saint Martin (French part)</option><option value="666">Saint Pierre and Miquelon</option><option value="670">Saint Vincent and the Grenadines</option><option value="882">Samoa</option><option value="674">San Marino</option><option value="678">Sao Tome and Principe</option><option value="682">Saudi Arabia</option><option value="686">Senegal</option><option value="688">Serbia</option><option value="690">Seychelles</option><option value="694">Sierra Leone</option><option value="702">Singapore</option><option value="534">Sint Maarten (Dutch part)</option><option value="703">Slovakia</option><option value="705">Slovenia</option><option value="90">Solomon Islands</option><option value="706">Somalia</option><option value="710">South Africa</option><option value="239">South Georgia and the South Sandwich Islands</option><option value="728">South Sudan</option><option value="724">Spain</option><option value="144">Sri Lanka</option><option value="729">Sudan</option><option value="740">Suriname</option><option value="744">Svalbard and Jan Mayen</option><option value="748">Swaziland</option><option value="752">Sweden</option><option value="756">Switzerland</option><option value="760">Syrian Arab Republic</option><option value="158">Taiwan, Province of China</option><option value="762">Tajikistan</option><option value="834">Tanzania, United Republic of</option><option value="764">Thailand</option><option value="626">Timor-Leste</option><option value="768">Togo</option><option value="772">Tokelau</option><option value="776">Tonga</option><option value="780">Trinidad and Tobago</option><option value="788">Tunisia</option><option value="792">Turkey</option><option value="795">Turkmenistan</option><option value="796">Turks and Caicos Islands</option><option value="798">Tuvalu</option><option value="800">Uganda</option><option value="804">Ukraine</option><option value="784">United Arab Emirates</option><option value="826">United Kingdom</option><option value="840">United States</option><option value="581">United States Minor Outlying Islands</option><option value="858">Uruguay</option><option value="860">Uzbekistan</option><option value="548">Vanuatu</option><option value="862">Venezuela, Bolivarian Republic of</option><option value="704">Viet Nam</option><option value="92">Virgin Islands, British</option><option value="850">Virgin Islands, U.S.</option><option value="876">Wallis and Futuna</option><option value="732">Western Sahara</option><option value="887">Yemen</option><option value="894">Zambia</option><option value="716">Zimbabwe</option></select>
+          </div>
+  
+        </div>
+      </div>
+  
+      <p class="register-second-title">Primary Contact Details</p>
+      <div class="row">
+        <div class="col-md-6 col-sm-12">
+          <div class="form-group m-form__group">
+            <input class="form-control" placeholder="First Name *" name="primary_contact_first_name" type="text">
+          </div>
+          <div class="form-group m-form__group">
+            <input class="form-control" placeholder="Mobile Number *" name="primary_contact_mobile" type="text">
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <div class="form-group m-form__group">
+            <input class="form-control" placeholder="Surname *" name="primary_contact_surname" type="text">
+          </div>
+          <div class="form-group m-form__group">
+            <input class="form-control" placeholder="Email Address *" name="primary_contact_email" type="text">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 col-sm-12">
+          <div class="form-group m-form__group terms">
+            <input type="checkbox" name="tc" class="form-control"> 
+            <label for="terms">I accept the <a href="https://workflow.tv/resources/workflow_terms_and_conditions_final_8_3_19.pdf" target="_blank">Terms
+                and Conditions</a></label>
+          </div>
+          <div class="form-group m-form__group priv">
+            <input type="checkbox" name="priv" class="form-control"> 
+            <label for="priv">I accept the <a href="https://workflow.tv/resources/workflow_privacy_policy_final.pdf" target="_blank">Privacy Policy</a></label>
+          </div>
+          <button type="submit" class="btn btn-primary call-to-action-click"><span>Register</span></button>
+        </div>
+      </div>
+  
+      </form>
+      <div style="clear: both; width:100%;">&nbsp;</div>
+    </div>
+  </div>
+  <!--
+  <div class="modal-overlay">
+    <div class="register-modal register-form">
+      <form action="https://admin.workflow.tv/signup">
+        <h1>COMPANY REGISTRATION FORM <i id="close-register" class="fas fa-times close-register"></i></h1>
+        @if(Session::get('message'))
+        <div class="response-message">
+          <span>{{ Session::get('message') }}</span>
+        </div>
+        @endif
+        <p>Please complete the form below to register a Production Company. All fields are mandatory.</p>
+        @if ($errors->any())
+        <div class="alert alert-danger">
+          <h6>Please correct the following errors:</h6>
+          <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+          </ul>
+        </div>
+        @endif 
+      <div class="row">
+        <div class="col-md-6 col-sm-12">
+          <div class="form-group m-form__group">
+            input
+            {{ Form::text('company_name', null, ['class' => $errors->has('company_name') ? 'form-control error' :
+            <!--
+              'form-control', 'placeholder' => 'Production Company Name *']) }}
+            </div>
+            <div class="form-group m-form__group">
+              {{ Form::text('company_website', null, ['class' => $errors->has('company_website') ? 'form-control error' :
+              'form-control', 'placeholder' => 'Website *']) }}
+            </div>
+            <div class="form-group m-form__group">
+              {{ Form::text('company_vat', null, ['class' => $errors->has('company_vat') ? 'form-control error' :
+              'form-control', 'placeholder' => 'VAT Number *']) }}
+            </div>
+            <div class="form-group m-form__group">
+              {{ Form::text('company_email', null, ['class' => $errors->has('company_email') ? 'form-control error' :
+              'form-control', 'placeholder' => 'Email Address *']) }}
+            </div>
+            <div class="form-group m-form__group">
+              {{ Form::text('company_phone', null, ['class' => $errors->has('company_phone') ? 'form-control error' :
+              'form-control', 'placeholder' => 'Telephone Number *']) }}
+            </div>
+          </div>
+          
+          <div class="col-md-6 col-sm-12">
+            <div class="form-group m-form__group ">
+              {{ Form::text('street', null, ['placeholder' => 'Address *', 'class' => $errors->has('street') ?
+              'form-control error ' : 'form-control', 'id' => 'street']) }}
+            </div>
+            <div class="form-group m-form__group ">
+              {{ Form::text('city', null, ['placeholder' => 'City *', 'class' => $errors->has('city') ? 'form-control
+              error ' : 'form-control', 'id' => 'city']) }}
+            </div>
+            <div class="form-group m-form__group ">
+              {{ Form::text('state', null, ['placeholder' => 'Province *', 'class' => $errors->has('state') ?
+              'form-control error ' : 'form-control', 'id' => 'state']) }}
+            </div>
+            <div class="form-group m-form__group ">
+              {{ Form::text('post_code', null, ['placeholder' => 'Postal Code *', 'class' => $errors->has('post_code') ?
+              'form-control error ' : 'form-control', 'id' => 'post_code']) }}
+            </div>
+            <div class="form-group m-form__group ">
+              {{ Form::select('country_id', App\Models\Country::orderBy('name', 'ASC')->get()->pluck('name','id'), null,
+              ['placeholder' => 'Country *', 'class' => $errors->has('country_id') ? 'form-control error' :
+              'form-control', 'id' => 'country_id']) }}
+            </div>
+            
+          </div>
+        </div>
+        
+        <p class="register-second-title">Primary Contact Details</p>
+        <div class="row">
+          <div class="col-md-6 col-sm-12">
+            <div class="form-group m-form__group">
+              {{ Form::text('primary_contact_first_name', null, ['class' => $errors->has('primary_contact_first_name') ?
+              'form-control error' : 'form-control', 'placeholder' => 'First Name *']) }}
+            </div>
+            <div class="form-group m-form__group">
+              {{ Form::text('primary_contact_mobile', null, ['class' => $errors->has('primary_contact_mobile') ?
+              'form-control error' : 'form-control', 'placeholder' => 'Mobile Number *']) }}
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-12">
+            <div class="form-group m-form__group">
+              {{ Form::text('primary_contact_surname', null, ['class' => $errors->has('primary_contact_surname') ?
+              'form-control error' : 'form-control', 'placeholder' => 'Surname *']) }}
+            </div>
+            <div class="form-group m-form__group">
+              {{ Form::text('primary_contact_email', null, ['class' => $errors->has('primary_contact_email') ?
+              'form-control error' : 'form-control', 'placeholder' => 'Email Address *']) }}
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 col-sm-12">
+            <div class="form-group m-form__group terms">
+              <input type="checkbox" name="tc" class="form-control" />
+              <label for="terms">I accept the <a
+                href="{{ asset('/resources/workflow_terms_and_conditions_final_8_3_19.pdf') }}" target="_blank">Terms
+                and Conditions</a></label>
+              </div>
+              <div class="form-group m-form__group priv">
+                <input type="checkbox" name="priv" class="form-control" />
+                <label for="priv">I accept the <a href="{{ asset('/resources/workflow_privacy_policy_final.pdf') }}"
+                  target="_blank">Privacy Policy</a></label>
+                </div>
+                <button type="submit" class="btn btn-primary call-to-action-click"><span>Register</span></button>
+              </div>
+            </div>
+          </form>
+          <div style="clear: both; width:100%;">&nbsp;</div>
+        </div>
+      -->
+  </div>
+</body>
+
+</html>

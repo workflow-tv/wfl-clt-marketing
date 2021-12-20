@@ -1,0 +1,9 @@
+version: "3.7"
+services:
+  nginx:
+    image: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./assets:/usr/share/nginx/html/assets:ro
+      - ./src:/usr/share/nginx/html
