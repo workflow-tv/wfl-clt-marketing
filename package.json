@@ -2,8 +2,7 @@
   "scripts": {
     "start": "echo \"TODO!! Implement Start Command.\"",
     "test": "echo \"TODO!! Implement Test Suite.\"",
-    "lint": "echo \"TODO!! Implement Linting.\"",
-    "prepare": "npx lefthook install"
+    "lint": "echo \"TODO!! Implement Linting.\""
   },
   "devDependencies": {
     "@arkweid/lefthook": "^0.7.7",
