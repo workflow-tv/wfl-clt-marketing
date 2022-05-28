@@ -17,7 +17,7 @@ body {
   margin: 0;
 }
 body .wrapper .container-fluid.nav-bar {
-  position: fixed;
+  /* position: fixed; */
   top: 0;
   left: 0;
   width: 100%;
@@ -42,10 +42,10 @@ body .wrapper .container-fluid.nav-bar {
   background: url(/assets/images/workflow-logo.png);
   background-repeat: no-repeat;
   background-size: contain;
-  width: 225px;
+  /* width: 225px; */
   height: 45px;
-  float: left;
-  margin: 18px 18px 0 0;
+  /* float: left; */
+  margin: 18px auto;
   background-position: center;
   -webkit-transition: width 500ms;
   -moz-transition: width 500ms;
@@ -101,7 +101,7 @@ a.anchor {
   visibility: hidden;
 }
 .nav-bar-grid {
-  display: grid;
+  /* display: grid; */
   grid-template-columns: auto 1fr;
 }
 .nav-bar-grid .logo {
@@ -200,7 +200,7 @@ a.anchor {
 .nav-bar.m-smaller header .logo {
   width: 150px;
   height: 45px;
-  margin: 6px 18px 0 0;
+  margin: 6px auto;
 }
 .nav-bar.m-smaller header nav ul li {
   padding: 18px 15px;
@@ -466,10 +466,10 @@ button.btn-transparent i {
 }
 .features {
   padding-bottom: 80px;
-  background-color: #f2f2f2;
+  /* background-color: #f2f2f2; */
   width: 100%;
-  margin: 0 auto;
-  overflow: hidden;
+  /* margin: 0 auto; */
+  /* overflow: hidden; */
 }
 .features h2 {
   text-align: center;
@@ -2004,7 +2004,14 @@ img#demo-phone-screen {
   padding: 0px 0px;
 }
 .testimonials {
-background-color: #f2f2f2;
+  padding: 15em 0em;
+}
+
+@media (max-height: 800px) {
+  .testimonials {
+    padding: 5em 0em;
+  }
+
 }
 
 .testimonials p {
