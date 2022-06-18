@@ -6,4 +6,4 @@ services:
       - "80:80"
     volumes:
       - ./assets:/usr/share/nginx/html/assets:ro
-      - ./:/usr/share/nginx/html
+      - ./src:/usr/share/nginx/html
